@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
@@ -23,15 +24,21 @@ import androidx.compose.ui.unit.dp
 import com.example.finanzasapp.components.SummaryCardItemGreen
 import com.example.mchavezfinanceapp.ui.theme.MChavezFinanceAppTheme
 import com.example.mchavezfinanceapp.components.*
-import com.example.mchavezfinanceapp.models.user
+import com.example.mchavezfinanceapp.models.*
+
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
 
         setContent {
+
             MChavezFinanceAppTheme {
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     HomeScreen()
                 }
@@ -77,7 +84,6 @@ fun HomeScreen() {
                     }
 
                     Spacer(modifier = Modifier.width(8.dp))
-
                     Column {
                         Text(
                             text = "Hola ${user.name}",
@@ -95,11 +101,11 @@ fun HomeScreen() {
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+
                 SummaryCardItemGreen(
                     title = "Actividad",
                     amount = "de la Semana",
@@ -109,16 +115,19 @@ fun HomeScreen() {
                         .weight(1f)
                         .height(200.dp)
                 )
+
                 Column(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+
                     SummaryCardItem(
                         title = "Ventas",
                         amount = "$280.99",
                         color = Color(0xFFE7D7C9),
                         modifier = Modifier.height(95.dp)
                     )
+
                     SummaryCardItem(
                         title = "Ganancias",
                         amount = "$280.99",
@@ -127,6 +136,28 @@ fun HomeScreen() {
                     )
                 }
             }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Text(
+                    text = "Transactions",
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text("See All")
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+
+        items(transactions) { transaction ->
+            TransactionItem(transaction)
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
